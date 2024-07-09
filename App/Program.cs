@@ -39,7 +39,7 @@ if (args.Length != 0)
 
 Console.WriteLine("Usage:");
 Console.WriteLine("dotnet run --project App -- list-topics");
-Console.WriteLine("dotnet run --project App -- create-topic <topic> <numPartitions>");
+Console.WriteLine("dotnet run --project App -- create-topic <topic> [<numPartitions>]");
 Console.WriteLine("dotnet run --project App -- delete-topic <topic>");
 Console.WriteLine("dotnet run --project App -- delete-all-topics");
 Console.WriteLine("dotnet run --project App -- produce <topic>");

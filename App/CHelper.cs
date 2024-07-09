@@ -33,7 +33,7 @@ public static class CHelper
         consumer.Subscribe(topic);
 
         Console.WriteLine();
-        Console.WriteLine($"Consuming messages with group id {groupId}..");
+        Console.WriteLine($"Consuming messages from topic {topic} with group id {groupId}..");
 
         Console.CancelKeyPress += delegate
         {

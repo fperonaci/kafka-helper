@@ -1,5 +1,4 @@
-﻿
-using Confluent.Kafka;
+﻿using Confluent.Kafka;
 
 using Streamiz.Kafka.Net.SerDes;
 
@@ -32,7 +31,7 @@ public static class PHelper
 
 
         Console.WriteLine();
-        Console.WriteLine($"Producing messages..");
+        Console.WriteLine($"Producing messages on topic {topic}..");
 
         Console.CancelKeyPress += delegate
         {
