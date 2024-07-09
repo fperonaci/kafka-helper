@@ -1,5 +1,4 @@
 # https://github.com/bitnami/containers/blob/main/bitnami/kafka/README.md
-version: "3"
 services:
   kafka:
     image: bitnami/kafka:latest
