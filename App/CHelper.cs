@@ -1,8 +1,20 @@
 using Confluent.Kafka;
 
+using Streamiz.Kafka.Net.SerDes;
+
 namespace App;
 
-public static class CHelper<TKey, TValue>
+public class Deserializer : IDeserializer<string>
+{
+    private readonly static StringSerDes StringSerDes = new();
+
+    public string Deserialize(ReadOnlySpan<byte> data, bool isNull, SerializationContext context)
+    {
+        return StringSerDes.Deserialize(data.ToArray(), context);
+    }
+}
+
+public static class CHelper
 {
     public static void Consume(string server, string topic, string groupId, AutoOffsetReset offsetReset)
     {
@@ -13,7 +25,10 @@ public static class CHelper<TKey, TValue>
             AutoOffsetReset = offsetReset
         };
 
-        var consumer = new ConsumerBuilder<TKey, TValue>(config).Build();
+        var consumer = new ConsumerBuilder<string, string>(config)
+            .SetKeyDeserializer(new Deserializer())
+            .SetValueDeserializer(new Deserializer())
+            .Build();
 
         consumer.Subscribe(topic);
 
@@ -33,7 +48,7 @@ public static class CHelper<TKey, TValue>
             var value = result.Message.Value;
             var partition = result.Partition;
             var timestamp = result.Message.Timestamp;
-            Console.WriteLine($"{key} {partition} {value} {timestamp.UtcDateTime.ToLocalTime():HH:mm:ss}");
+            Console.WriteLine($"{partition} {key} {value} {timestamp.UtcDateTime.ToLocalTime():HH:mm:ss}");
         }
     }
 

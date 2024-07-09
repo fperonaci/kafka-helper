@@ -32,7 +32,7 @@ if (args.Length != 0)
 
         case "consume":
             var groupId = args.Length > 2 ? args[2] : Guid.NewGuid().ToString();
-            CHelper<string, string>.Consume(server, args[1], groupId);
+            CHelper.Consume(server, args[1], groupId);
             return;
     }
 }
