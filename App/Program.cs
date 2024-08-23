@@ -1,10 +1,10 @@
 ﻿using App;
 
-var server = "localhost:9093";
+var server = args[0];
 
 if (args.Length != 0)
 {
-    switch (args[0])
+    switch (args[1])
     {
         case "list-topics":
             Console.WriteLine($"Existing topics (<name>, <numPartitions>):");
@@ -13,12 +13,12 @@ if (args.Length != 0)
             return;
 
         case "create-topic":
-            var numPartitions = args.Length > 2 ? int.Parse(args[2]) : 1;
-            THelper.CreateTopicIfNotExists(server, args[1], numPartitions);
+            var numPartitions = args.Length > 3 ? int.Parse(args[3]) : 1;
+            THelper.CreateTopicIfNotExists(server, args[2], numPartitions);
             return;
 
         case "delete-topic":
-            THelper.DeleteTopicIfExists(server, args[1]);
+            THelper.DeleteTopicIfExists(server, args[2]);
             return;
 
         case "delete-all-topics":
@@ -27,12 +27,12 @@ if (args.Length != 0)
             return;
 
         case "produce":
-            PHelper.Produce(server, args[1]);
+            PHelper.Produce(server, args[2]);
             return;
 
         case "consume":
-            var groupId = args.Length > 2 ? args[2] : Guid.NewGuid().ToString();
-            CHelper.Consume(server, args[1], groupId);
+            var groupId = args.Length > 3 ? args[3] : Guid.NewGuid().ToString();
+            CHelper.Consume(server, args[2], groupId);
             return;
     }
 }
